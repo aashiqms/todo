@@ -1,22 +1,6 @@
 		/*
-			KEY COMPONENTS:
-			"activeItem" = null until an edit button is clicked. Will contain object of item we are editing
-			"list_snapshot" = Will contain previous state of list. Used for removing extra rows on list update
-
-			PROCESS:
-			1 - Fetch Data and build rows "buildList()"
-			2 - Create Item on form submit
-			3 - Edit Item click - Prefill form and change submit URL
-			4 - Delete Item - Send item id to delete URL
-			5 - Cross out completed task - Event handle updated item
-
-			NOTES:
-			-- Add event handlers to "edit", "delete", "title"
-			-- Render with strike through items completed
-			-- Remove extra data on re-render
-			-- CSRF Token
+Django builtin function for csrf token usage in forms
 		*/
-        			//wrapper.innerHTML = ''
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -34,44 +18,31 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
-		list_function()
+// Creating a asynnchronous function for listing all Todos using 'task-list' api
 
-			function list_function(){
-			let wrapper = document.querySelector('.wrapper')
-                wrapper.innerHTML = ''
-			let url = '/api/task-list/'
+const listTodos = async () => {
+    const response = await fetch('api/task-list/');
+    let wrapper = document.querySelector('.wrapper');
+    wrapper.innerHTML = ''
 
-			fetch(url)
-			.then((response) => response.json())
-			.then(data => {
-				console.log('Data:', data)
+    if(response.status !== 200){
+        throw new Error('cannot fetch data, probably wrong api url(Error Code 200');
+    }
+    const data = await response.json();
+    console.log(data);
+    for(let index in data){
+        let item = `<p>${data[index].title}`
+        wrapper.innerHTML += item
+    }
+    return data;
 
-				let list = data
-				for (let i in list){
-                    let item = `
-                    <li class="todo todo__item">
-        <input type="checkbox" id="todo-${i}">
-        <label for="todo-${i}">
-          <span class="check__box">
-            <i class="far fa-check check__pointer"></i>
-          </span>
-          <span class="item__title">${list[i].title} <i class="fas fa-edit item__edit" ></i></i></span>
-          
-        </label>
-        
-        
-        <i class="fas fa-trash-alt item__trash-can"></i>  
-      </li>
-					`;
-                    wrapper.innerHTML += item
+};
+listTodos();
 
-				}
+// Creating a asynnchronous function for Creating Todos using 'task-create' api
 
-			})
-		}
-
-
-		let form = document.querySelector('#newTask')
+const createTodos = async () => {
+  let form = document.querySelector('#newItem')
 
 
         form.addEventListener('submit', function (e) {
@@ -80,24 +51,79 @@ var csrftoken = getCookie('csrftoken');
             let url = '/api/task-create/'
             let title = document.querySelector('.title').value
 
-            fetch(url, {
-                method: 'POST',
-                headers:{
-                    'Content-type': 'application/json',
-                    'X-CSRFToken': csrftoken
-                },
-                body:JSON.stringify({'title':title})
+            let settings = {
+              method: 'POST',
+              headers:{
+                  'Content-type': 'application/json',
+                  'X-CSRFToken': csrftoken
+              },
+              body:JSON.stringify({'title':title})
 
 
-            }).then(function (response) {
-                list_function()
-                document.querySelector('#newTask').reset()
+          }
 
-            })
+          fetch(url, settings)
+          .then(function(response){
+              listTodos()
+              document.querySelector('.newItem').reset()
+          })   
 
-        })
-        
-        function editItem() {
-		    console.log('item clicked')
+        })   
+}
 
-        }
+createTodos()
+.catch(e => {
+  console.log('There has been a problem with your fetch operation: ' + e.message);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// listTodos()
+//     .then(data => console.log('promise resolved for task-list api', data))
+//     .catch(err => console.log('promise rejected for task-list api', err.message));
+
+// // Ending for Listing of Todo items
+
+
+// const addTask = document.querySelector('.newItem')
+// addToyForm.addEventListener('submit', function (event) {
+//   fetch(`api/task-create/`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-CSRFToken':csrftoken,
+//     },
+//     body: JSON.stringify({
+//       'title': title
+//     })
+//   })
+
+//   let promise = new Promise()
+//     // .then(resp => resp.json())
+//     // .then(listTodo())
+// })
