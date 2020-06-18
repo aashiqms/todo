@@ -8,32 +8,31 @@
 }
 html {
 	font-size: 16px;
-	font-family: Calibri, sans-serif;
+	font-family: Calibri;
 }
 body {
 	margin: 0;
 	padding-top: 100px;
 	min-height: 100vh;
 	background: rgb(145,200,255);
-	background: radial-gradient(circle, darkblue 0%, darkmagenta 100%);
+	background: radial-gradient(circle, rgba(145,200,255,1) 0%, rgba(55,150,245,1) 100%);
 }
 
-.todo__wrapper {
+.todo_container {
 	margin: 0 auto;
 	padding: 20px 0;
 	width: 100%;
 	max-width: 450px;
 	min-height: 450px;
 	border-radius: 10px;
-	border-bottom: var(--wrapper-border);
 	background-color: var(--color-bg);
 	box-shadow: 0 7px 30px rgba(67, 70, 77, .3);
 }
-.todo__content h1,
-.todo__content .newItem {
+.task_container h1,
+.task_container .newItem {
 	padding: 0 30px;
 }
-.todo__content .todo__list {
+.task_container .list_all {
 	padding-left: 20px;
 	padding-right: 30px;
 }
@@ -108,24 +107,24 @@ body {
 	color: #4ca1f7;
 }
 
-.todo__list {
+.list_all {
 	list-style: none;
 	padding: 0;
 	margin-top: 30px;
 }
-.todo__item {
+.item {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 20px 0;
 }
-.todo__item.invisible {
+.item.invisible {
 	display: none;
 }
-.todo__item > input[type="checkbox"] {
+.item > input[type="checkbox"] {
 	display: none;
 }
-.todo__item label {
+.item label {
 	position: relative;
 	max-width: 70%;
 	padding: 5px 10px;
@@ -139,10 +138,10 @@ body {
 	animation: pulse 0.4s ease forwards;
 	overflow: hidden;
 }
-.todo__item label:hover {
+.item label:hover {
 	background-color: rgba(166, 166, 166, 0.3);
 }
-.todo__item .check__box {
+.item .check__box {
 	position: absolute;
 	left: 10px;
 	top: 50%;
@@ -154,13 +153,12 @@ body {
 }
 .item__trash-can {
 	cursor: pointer;
-	margin-right: 28px;
 	color: #ff7878;
 }
 .item__trash-can:hover {
 	color: #f54c4c;
 }
-.todo__item > input[type="checkbox"] + label .check__pointer {
+.item > input[type="checkbox"] + label .check__pointer {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -169,15 +167,14 @@ body {
 	transform: translate(-50%, -50%) scale(0);
 	transition: transform 0.3s cubic-bezier(0.3, 0, 0, 1.5);
 }
-.todo__item > input[type="checkbox"]:checked + label .check__box {
+.item > input[type="checkbox"]:checked + label .check__box {
 	border: none;
 }
-.todo__item > input[type="checkbox"]:checked + label .check__pointer {
+.item > input[type="checkbox"]:checked + label .check__pointer {
 	transform: translate(-50%, -50%) scale(1);
 }
-.todo__item > input[type="checkbox"]:checked + label .item__title {
+.item > input[type="checkbox"]:checked + label .item__title {
 	color: #c7c7c7;
-
 }
 
 @keyframes pulse {
@@ -191,31 +188,3 @@ body {
 		transform: scale(1);
 	}
 }
-
-
-.item__edit {
-	cursor: pointer;
-	margin-left: 15px;
-	color: #ff7878;
-}
-.item__edit:hover {
-	color: #f54c4c;
-}
-
-.submit-button{
-	width: 33px;
-	height: 25px;
-	background: radial-gradient(circle, navajowhite 0%, whitesmoke 100%);
-	border: 2px darkred solid;
-
-}
-.submit-button i{
-	font-weight: bold;
-
-}
-.submit-button:hover{
-	color: darkred;
-	cursor: pointer;
-
-}
-
