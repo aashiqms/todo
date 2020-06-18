@@ -15,6 +15,7 @@
 
 .edit{
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .item{
@@ -23,6 +24,7 @@
 
 .delete{
     margin: 20px;
+    cursor: pointer;
 }
 
 body{
@@ -57,4 +59,12 @@ html, body {
 
 ::-webkit-scrollbar {
     display: block;
+}
+
+.edit:hover{
+    color: #36d9b6;;
+}
+
+.delete:hover{
+    color: #36d9b6;;
 }
