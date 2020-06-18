@@ -36,8 +36,13 @@ body{
 
 #title{
     margin: 5px;
+    /*cursor: pointer;*/
 }
 
 #checkbox{
     margin-right: 15px;
+}
+
+.item_title{
+    cursor: pointer;
 }

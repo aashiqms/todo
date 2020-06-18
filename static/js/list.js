@@ -49,11 +49,10 @@
 					let item = `
 						<div id="data-row-${i}">
 						<li class="item">
-<!--        <input type="checkbox" id="todo-1">-->
-        <label for="todo-1">
+<!--        <label for="check__box">-->
           <span class="check__box">
-          <span class="item__title">${title}</span>
-        </label>
+          <span class="item_title">${title}</span>
+<!--        </label>-->
         <i class="fas fa-edit item__trash-can edit"></i>
         <i class="fas fa-trash-alt item__trash-can delete"></i>
         
