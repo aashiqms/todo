@@ -27,6 +27,7 @@
 
 body{
     background: radial-gradient(circle, rgba(145,40,255,1) 0%, rgba(55,150,245,1) 100%);
+
 }
 
 #content-main{
@@ -45,4 +46,15 @@ body{
 
 .item_title{
     cursor: pointer;
+}
+
+html, body {
+   max-width: 100%;
+   overflow-x: hidden;
+        height:auto!important;
+}
+
+
+::-webkit-scrollbar {
+    display: block;
 }

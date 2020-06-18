@@ -184,3 +184,5 @@ function strikeTask(item){
 				buildList()
 			})
 		}
+
+
