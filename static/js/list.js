@@ -42,21 +42,21 @@
 					}catch(err){
 
 					}
-					let title = `<span class="title">${list[i].title}</span>`
+					let title = `<input type="checkbox" id="checkbox"><span class="title">${list[i].title}</span>`
+					if (list[i].completed === true){
+						title = `<span class="title" style="text-decoration: line-through;color: grey;">${list[i].title}</span>`
+					}
 					let item = `
-						
-						
 						<div id="data-row-${i}">
 						<li class="item">
-        <input type="checkbox" id="todo-1" onchange="handleCheck('todo-1')">
+<!--        <input type="checkbox" id="todo-1">-->
         <label for="todo-1">
           <span class="check__box">
-            <i class="far fa-check check__pointer"></i>
-          </span>
           <span class="item__title">${title}</span>
         </label>
-        <i class="fas fa-trash-alt item__trash-can delete"></i>
         <i class="fas fa-edit item__trash-can edit"></i>
+        <i class="fas fa-trash-alt item__trash-can delete"></i>
+        
       </li>
 </div>
 					`
@@ -87,13 +87,19 @@
 							deleteItem(item)
 						}
 					})(list[i]))
+
+					title.addEventListener('click', (function(item){
+						return function(){
+							strikeTask(item)
+						}
+					})(list[i]))
 				})
 
 			})
 		}
 // .....................................................................................................................
 
-		let form = document.querySelector('#task_container')
+		let form = document.querySelector('#form')
 		form.addEventListener('submit', function(e){
 			e.preventDefault();
 			console.log('Form submitted');
@@ -159,4 +165,23 @@
 			});
 		}
 
+// Function to Strikedown completed tasks
 
+function strikeTask(item){
+			let task_id = `${item.id}`
+			console.log('Strike clicked')
+
+			item.completed = !item.completed
+
+	const url = '/api/task-update/' +task_id;
+			fetch(url, {
+				method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({'title':item.title, 'completed':item.completed})
+			}).then((response) => {
+				buildList()
+			})
+		}
