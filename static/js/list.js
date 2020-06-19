@@ -22,7 +22,7 @@
 		let activeItem = null
 		let list_snapshot = []
 
-// A function to list all tasks from task-list api
+// Function to list all tasks from task-list api
 
 		buildList()
 
@@ -49,10 +49,8 @@
 					let item = `
 						<div id="data-row-${i}">
 						<li class="item">
-<!--        <label for="check__box">-->
           <span class="check__box">
           <span class="item_title">${title}</span>
-<!--        </label>-->
         <i class="fas fa-edit item__trash-can edit"></i>
         <i class="fas fa-trash-alt item__trash-can delete"></i>
         
